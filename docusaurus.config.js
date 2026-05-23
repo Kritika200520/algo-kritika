@@ -19,8 +19,8 @@ const showGitHistory =
             if (!fs.existsSync(path.join(__dirname, ".git"))) {
               return false;
             }
-
-            execSync("git rev-parse --is-inside-work-tree", { stdio: "ignore" });
+            // Dry run a git log check to verify git operations succeed on actual files (fails on OneDrive)
+            execSync("git log -1 docusaurus.config.js", { stdio: "ignore" });
             return true;
           } catch {
             return false;
@@ -156,6 +156,10 @@ const config = {
               {
                 to: "practice",
                 label: "Practice",
+              },
+              {
+                to: "playground",
+                label: "Playground",
               },
               {
                 to: "quizzes",
